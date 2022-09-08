@@ -1,0 +1,24 @@
+# const
+profiles::services::powerdns::backend: postgresql
+postgresql::globals::version: '13'
+profiles::services::powerdns::backend_install: true
+
+profiles::services::powerdns::db_root_password: #db_root_password#
+profiles::services::powerdns::db_username: powerdns
+profiles::services::powerdns::db_name: powerdns
+profiles::services::powerdns::db_password: #db_powerdns_password#
+
+# UI
+profiles::services::powerdns::powerdnsadmin_install: false
+
+## per nodes settings
+# master
+profiles::services::powerdns::master: 'yes'
+profiles::services::powerdns::slave: 'no'
+profiles::services::powerdns::superslave: 'no'
+profiles::services::powerdns::masterhost:
+#profiles::services::powerdns::slavehost: 10.0.0.3
+
+# api
+profiles::services::powerdns::api: '#api#'
+profiles::services::powerdns::api_key: "#api_key#"

@@ -1,0 +1,2 @@
+class { "profiles::services::powerdns": }
+
