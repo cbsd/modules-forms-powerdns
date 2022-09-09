@@ -9,7 +9,7 @@ profiles::services::powerdns::db_name: powerdns
 profiles::services::powerdns::db_password: #db_powerdns_password#
 
 # UI
-profiles::services::powerdns::powerdnsadmin_install: false
+profiles::services::powerdns::powerdnsadmin_install: #ui#
 
 ## per nodes settings
 # master

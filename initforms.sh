@@ -35,92 +35,43 @@ FORM_PATH="${workdir}/formfile"
 
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,1,"bind","Bind: default is 0.0.0.0",'0.0.0.0','','',1, "maxlen=60", "inputbox", "bind_autocomplete", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,2,"port","Port: default is 6379. 0 - not listen on a TCP socket",'6379','','',1, "maxlen=60", "inputbox", "port_autocomplete", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,3,"requirepass","Requirepass: Require clients to issue AUTH <PASSWORD>",'','','',0, "maxlen=30", "password", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,4,"maxmemory","MaxMemory: Don't use more memory than the specified amount of byte",'1g','','',1, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,5,"maxmemory_policy","maxmemory policy",'1','1','',1, "maxlen=128", "select", "memory_policy_select", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,6,"tcp_keepalive","tcp_keepalive",'0','','',1, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,7,"log_level","log_level; default is: warning",'4','','',1, "maxlen=128", "radio", "log_level", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,8,"syslog_enabled","syslog_enabled",'2','2','',1, "maxlen=128", "radio", "syslog_noyes", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,9,"timeout","timeout",'300','','',1, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,10,"-","Replication:",'-','','',1, "maxlen=128", "delimer", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,11,"slave_priority","slave-priority",'100','','',1, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,12,"slaveof","slaveof: ip port",'','','',0, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,13,"protected_mode","protected_mode",'2','2','',2, "maxlen=128", "radio", "protected_mode_falsetrue", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,1,"-Globals","Globals",'Globals','PP','',1, "maxlen=60", "delimer", "", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,2,"db_root_password","Root (superuser) DB password",'eikeuj4eipheeTah4nee','eikeuj4eipheeTah4nee','',1, "maxlen=60", "inputbox", "", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,3,"db_powerdns_password","PowerDNS user DB password",'aaZae7Quas9koo6roov2','aaZae7Quas9koo6roov2','',1, "maxlen=60", "inputbox", "", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,4,"api","Enable PowerDNS API (e.g. required for UI)?",'1','1','',1, "maxlen=128", "radio", "api_noyes", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,5,"api_key","API token when API enabled",'teli2aXoj9eu6ieghein','teli2aXoj9eu6ieghein','',1, "maxlen=128", "inputbox", "", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,6,"ui","Enable WEB/UI via PowerDNSAdmin?",'1','1','',1, "maxlen=128", "radio", "ui_noyes", "" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,500,"-Zones","Zones",'Zones','-','',1, "maxlen=60", "delimer", "", "zonesgroup" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,501,"zones","Zones",'501','','',0, "maxlen=60", "group_add", "", "zonesgroup" );
 COMMIT;
 EOF
 
-# syslog_noyes
-/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema syslog_noyes
+# api_noyes
+/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema api_noyes
 
-# protected_mode_falsetrue
-/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema protected_mode_falsetrue
-
-# autocomplete
-/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema bind_autocomplete
-/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema port_autocomplete
-
-/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema log_level
-
-# Autocomplete
+# Put boolean for api_noyes
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO bind_autocomplete ( text, order_id ) VALUES ( '0.0.0.0', 1 );
-INSERT INTO bind_autocomplete ( text, order_id ) VALUES ( '127.0.0.1', 2 );
+INSERT INTO api_noyes ( text, order_id ) VALUES ( "no", 1 );
+INSERT INTO api_noyes ( text, order_id ) VALUES ( "yes", 0 );
 COMMIT;
 EOF
 
-# Autocomplete
+# ui_noyes
+/usr/local/bin/cbsd ${miscdir}/updatesql ${FORM_PATH}/${HELPER}.sqlite ${distsharedir}/forms_yesno.schema ui_noyes
+
+# Put boolean for api_noyes
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO port_autocomplete ( text, order_id ) VALUES ( '6379', 1 );
-INSERT INTO port_autocomplete ( text, order_id ) VALUES ( '0', 2 );
+INSERT INTO ui_noyes ( text, order_id ) VALUES ( "no", 1 );
+INSERT INTO ui_noyes ( text, order_id ) VALUES ( "yes", 0 );
 COMMIT;
 EOF
 
-# Autocomplete
+# system
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO log_level ( text, order_id ) VALUES ( 'debug', 1 );
-INSERT INTO log_level ( text, order_id ) VALUES ( 'verbose', 2 );
-INSERT INTO log_level ( text, order_id ) VALUES ( 'notice', 3 );
-INSERT INTO log_level ( text, order_id ) VALUES ( 'warning', 4 );
-COMMIT;
-EOF
-
-# Put boolean for syslog_noyes
-${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
-BEGIN TRANSACTION;
-INSERT INTO syslog_noyes ( text, order_id ) VALUES ( "no", 1 );
-INSERT INTO syslog_noyes ( text, order_id ) VALUES ( "yes", 0 );
-COMMIT;
-EOF
-
-
-${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
-BEGIN TRANSACTION;
-INSERT INTO protected_mode_falsetrue ( text, order_id ) VALUES ( "false", 1 );
-INSERT INTO protected_mode_falsetrue ( text, order_id ) VALUES ( "true", 0 );
-COMMIT;
-EOF
-
-# Put boolean for syslog_noyes
-${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
-BEGIN TRANSACTION;
-CREATE TABLE memory_policy_select ( id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT DEFAULT NULL, order_id INTEGER DEFAULT 0 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "volatile-lru", 5 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "allkeys-lru", 4 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "volatile-random", 3 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "allkeys-random", 2 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "volatile-ttl", 1 );
-INSERT INTO memory_policy_select ( text, order_id ) VALUES ( "noeviction", 0 );
-COMMIT;
-EOF
-
-${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
-BEGIN TRANSACTION;
-INSERT INTO system ( helpername, version, packages, have_restart ) VALUES ( "powerdns", "201607", "databases/powerdns", "powerdns" );
+INSERT INTO system ( helpername, version, packages, have_restart ) VALUES ( "powerdns", "201607", "dns/powerdns", "pdns" );
 COMMIT;
 EOF
 
@@ -128,9 +79,17 @@ EOF
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
 UPDATE system SET longdesc='\
-powerdns is an open source, advanced key-value store.  It is often referred \
-to as a data structure server since keys can contain strings, hashes, \
-lists, sets and sorted sets. \
+The PowerDNS Authoritative Server is a versatile nameserver which supports a \
+large number of backends. These backends can either be plain zone files or be \
+more dynamic in nature. \
+ \
+PowerDNS has the concepts of "backends". A backend is a datastore that the \
+server will consult that contains DNS records (and some metadata). The backends \
+range from database backends (MySQL, PostgreSQL) and BIND zone files to \
+co-processes and JSON APIs. \
+ \
+Multiple backends can be enabled in the configuration by using the launch \
+option. Each backend can be configured separately. \
 ';
 COMMIT;
 EOF
