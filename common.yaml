@@ -1,7 +1,6 @@
 # const
 profiles::services::powerdns::backend: postgresql
 postgresql::globals::version: '13'
-mysql::client::package_name: databases/mysql80-client
 profiles::services::powerdns::backend_install: true
 
 profiles::services::powerdns::db_root_password: #db_root_password#
