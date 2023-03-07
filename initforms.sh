@@ -85,7 +85,7 @@ The PowerDNS Authoritative Server is a versatile nameserver which supports a \\
 large number of backends. These backends can either be plain zone files or be \\
 more dynamic in nature. \\
 \\
-PowerDNS has the concepts of 'backends'. A backend is a datastore that the \\
+PowerDNS has the concepts of "backends". A backend is a datastore that the \\
 server will consult that contains DNS records (and some metadata). The backends \\
 range from database backends (MySQL, PostgreSQL) and BIND zone files to \\
 co-processes and JSON APIs. \\
