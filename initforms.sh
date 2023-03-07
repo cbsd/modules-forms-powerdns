@@ -35,14 +35,14 @@ FORM_PATH="${workdir}/formfile"
 
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,1,"-Globals","Globals",'Globals','PP','',1, "maxlen=60", "delimer", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,2,"db_root_password","Root (superuser) DB password",'eikeuj4eipheeTah4nee','eikeuj4eipheeTah4nee','',1, "maxlen=60", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,3,"db_powerdns_password","PowerDNS user DB password",'aaZae7Quas9koo6roov2','aaZae7Quas9koo6roov2','',1, "maxlen=60", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,4,"api","Enable PowerDNS API (e.g. required for UI)?",'2','2','',2, "maxlen=128", "radio", "api_noyes", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,5,"api_key","API token when API enabled",'teli2aXoj9eu6ieghein','teli2aXoj9eu6ieghein','',1, "maxlen=128", "inputbox", "", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,6,"ui","Enable WEB/UI via PowerDNSAdmin?",'2','2','',2, "maxlen=128", "radio", "ui_noyes", "" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,500,"-Zones","Zones",'Zones','-','',1, "maxlen=60", "delimer", "", "zonesgroup" );
-INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( "forms", 1,501,"zones","Zones",'501','','',0, "maxlen=60", "group_add", "", "zonesgroup" );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,1,'-Globals','Globals','Globals','PP','',1, 'maxlen=60', 'delimer', '', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,2,'db_root_password','Root (superuser) DB password','eikeuj4eipheeTah4nee','eikeuj4eipheeTah4nee','',1, 'maxlen=60', 'inputbox', '', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,3,'db_powerdns_password','PowerDNS user DB password','aaZae7Quas9koo6roov2','aaZae7Quas9koo6roov2','',1, 'maxlen=60', 'inputbox', '', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,4,'api','Enable PowerDNS API (e.g. required for UI)?','2','2','',2, 'maxlen=128', 'radio', 'api_noyes', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,5,'api_key','API token when API enabled','teli2aXoj9eu6ieghein','teli2aXoj9eu6ieghein','',1, 'maxlen=128', 'inputbox', '', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,6,'ui','Enable WEB/UI via PowerDNSAdmin?','2','2','',2, 'maxlen=128', 'radio', 'ui_noyes', '' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,500,'-Zones','Zones','Zones','-','',1, 'maxlen=60', 'delimer', '', 'zonesgroup' );
+INSERT INTO forms ( mytable,group_id,order_id,param,desc,def,cur,new,mandatory,attr,type,link,groupname ) VALUES ( 'forms', 1,501,'zones','Zones','501','','',0, 'maxlen=60', 'group_add', '', 'zonesgroup' );
 COMMIT;
 EOF
 
@@ -52,8 +52,8 @@ EOF
 # Put boolean for api_noyes
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO api_noyes ( text, order_id ) VALUES ( "no", 1 );
-INSERT INTO api_noyes ( text, order_id ) VALUES ( "yes", 0 );
+INSERT INTO api_noyes ( text, order_id ) VALUES ( 'no', 1 );
+INSERT INTO api_noyes ( text, order_id ) VALUES ( 'yes', 0 );
 COMMIT;
 EOF
 
@@ -63,15 +63,15 @@ EOF
 # Put boolean for api_noyes
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO ui_noyes ( text, order_id ) VALUES ( "no", 1 );
-INSERT INTO ui_noyes ( text, order_id ) VALUES ( "yes", 0 );
+INSERT INTO ui_noyes ( text, order_id ) VALUES ( 'no', 1 );
+INSERT INTO ui_noyes ( text, order_id ) VALUES ( 'yes', 0 );
 COMMIT;
 EOF
 
 # system
 ${SQLITE3_CMD} ${FORM_PATH}/${HELPER}.sqlite << EOF
 BEGIN TRANSACTION;
-INSERT INTO system ( helpername, version, packages, have_restart ) VALUES ( "powerdns", "201607", "dns/powerdns", "pdns" );
+INSERT INTO system ( helpername, version, packages, have_restart ) VALUES ( 'powerdns', '201607', 'dns/powerdns', 'pdns' );
 COMMIT;
 EOF
 
@@ -85,7 +85,7 @@ The PowerDNS Authoritative Server is a versatile nameserver which supports a \\
 large number of backends. These backends can either be plain zone files or be \\
 more dynamic in nature. \\
 \\
-PowerDNS has the concepts of "backends". A backend is a datastore that the \\
+PowerDNS has the concepts of 'backends'. A backend is a datastore that the \\
 server will consult that contains DNS records (and some metadata). The backends \\
 range from database backends (MySQL, PostgreSQL) and BIND zone files to \\
 co-processes and JSON APIs. \\
