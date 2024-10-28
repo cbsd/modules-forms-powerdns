@@ -1,6 +1,6 @@
 # const
 profiles::services::powerdns::backend: postgresql
-postgresql::globals::version: '13'
+postgresql::globals::version: '16'
 profiles::services::powerdns::backend_install: true
 
 profiles::services::powerdns::db_root_password: #db_root_password#
